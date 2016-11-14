@@ -1,9 +1,10 @@
 <?php 
+
 namespace Model; 
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Objects extends Eloquent{
-	protected $table = 'objects';
+class ObjectFreeAdvertObject extends Eloquent{
+	protected $table = 'object_free_advert_object';
 	public $timestamps = false;
 }

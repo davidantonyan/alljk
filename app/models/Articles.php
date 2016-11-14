@@ -1,9 +1,10 @@
 <?php 
+
 namespace Model; 
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Objects extends Eloquent{
-	protected $table = 'objects';
+class Articles extends Eloquent{
+	protected $table = 'articles';
 	public $timestamps = false;
 }

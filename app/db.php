@@ -15,4 +15,17 @@ $capsule->addConnection([
 	'prefix'    => $app->config->get('db.prefix'),
 ]);
 
+
+$capsule->setAsGlobal();
+
 $capsule->bootEloquent();
+
+$tables = $capsule::select('SHOW TABLES');
+
+foreach ($tables as $table) {
+	$cls  = str_replace(' ','',ucwords(str_replace('_',' ',$table->Tables_in_alljk))); 
+	$app->container->set($table->Tables_in_alljk,function() use($cls){
+		$cls =  'Model\\'.$cls;
+		return new $cls;
+	});
+}

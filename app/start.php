@@ -1,10 +1,11 @@
 <?php
 
 use Slim\Slim;
+use Slim\Views\Twig; 
 use Noodlehaus\Config;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Model\Objects;
+
 
 session_cache_limiter(false);
 session_start();
@@ -16,7 +17,9 @@ define('INC_ROOT', dirname(__DIR__));
 require INC_ROOT. '/vendor/autoload.php';
 
 $app = new Slim([
-	'mode' => file_get_contents(INC_ROOT.'/app/mode.php')
+	'mode' => file_get_contents(INC_ROOT.'/app/mode.php'),
+	'view' => new Twig(),
+	'templates.path' => INC_ROOT.'/app/views',
 ]);
 
 $app->configureMode($app->config('mode'),function() use ($app){
@@ -24,13 +27,7 @@ $app->configureMode($app->config('mode'),function() use ($app){
 });
 
 require INC_ROOT.'/app/db.php';
-
-$app->container->set('objects',function(){
-	return new Objects;
-});
+require INC_ROOT.'/app/routes.php';
 
 
 
-// $app->get('/',function(ServerRequestInterface $request){
-// 	// print_r($request->getParam('name'));
-// });
