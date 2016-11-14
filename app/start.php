@@ -29,8 +29,6 @@ $app->container->set('objects',function(){
 	return new Objects;
 });
 
-
-
 // $app->get('/',function(ServerRequestInterface $request){
 // 	// print_r($request->getParam('name'));
 // });
