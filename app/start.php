@@ -16,11 +16,11 @@ define('INC_ROOT', dirname(__DIR__));
 require INC_ROOT. '/vendor/autoload.php';
 
 $app = new Slim([
-	'mode' => 'config'
+	'mode' => file_get_contents(INC_ROOT.'/app/mode.php')
 ]);
 
 $app->configureMode($app->config('mode'),function() use ($app){
-	$app->config = Config::load(INC_ROOT.'/app/'.$app->mode.'.php');
+	$app->config = Config::load(INC_ROOT.'/app/config/'.$app->mode.'.php');
 });
 
 require INC_ROOT.'/app/db.php';
@@ -28,6 +28,8 @@ require INC_ROOT.'/app/db.php';
 $app->container->set('objects',function(){
 	return new Objects;
 });
+
+
 
 // $app->get('/',function(ServerRequestInterface $request){
 // 	// print_r($request->getParam('name'));
