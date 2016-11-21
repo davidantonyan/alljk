@@ -2,6 +2,7 @@
 
 use Slim\Slim;
 use Slim\Views\Twig; 
+use Slim\Views\TwigExtension;
 use Noodlehaus\Config;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,16 @@ $app = new Slim([
 $app->configureMode($app->config('mode'),function() use ($app){
 	$app->config = Config::load(INC_ROOT.'/app/config/'.$app->mode.'.php');
 });
+
+$view = $app->view();
+
+$view->parserOptions = [
+	'debug' => $app->config->get('twig.debug'),
+];
+
+$view->parserExtensions = [
+	new TwigExtension
+];
 
 require INC_ROOT.'/app/db.php';
 require INC_ROOT.'/app/routes.php';
